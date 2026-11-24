@@ -1,0 +1,540 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MISCHIEFHIGH | Premium Entertainment</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+ --bg:#09070b;
+ --panel:#151019;
+ --red:#ed2858;
+ --purple:#8c35c9;
+ --text:#fff;
+ --muted:#aaa;
+}
+
+body{
+ background:var(--bg);
+ color:var(--text);
+ font-family:Arial,sans-serif;
+}
+
+header{
+ position:sticky;top:0;z-index:100;
+ background:#100c13;
+ border-bottom:1px solid #302335;
+ padding:18px 6%;
+ display:flex;align-items:center;
+ justify-content:space-between;
+}
+
+.logo{
+ font-size:25px;font-weight:900;
+ letter-spacing:2px;
+ color:var(--red);
+}
+
+nav{display:flex;gap:24px}
+nav a{
+ text-decoration:none;color:#ccc;
+ font-size:14px;
+}
+nav a:hover{color:var(--red)}
+
+button{cursor:pointer}
+
+.signin{
+ background:var(--red);color:white;
+ border:0;border-radius:5px;
+ padding:11px 20px;font-weight:bold;
+}
+
+.hero{
+ min-height:470px;
+ display:flex;align-items:center;
+ padding:80px 8%;
+ background:
+ radial-gradient(ellipse at 75% 50%,#582044 0%,transparent 45%),
+ linear-gradient(100deg,#100b13,#190d1d);
+}
+
+.hero-content{max-width:650px}
+.eyebrow{
+ color:#fa527c;
+ letter-spacing:4px;
+ font-size:12px;font-weight:bold;
+}
+
+.hero h1{
+ font-size:clamp(40px,7vw,72px);
+ margin:22px 0;
+ line-height:1.05;
+}
+
+.hero p{
+ color:#c2b8c5;
+ line-height:1.8;
+ max-width:500px;
+}
+
+.primary{
+ margin-top:25px;
+ background:var(--red);
+ border:0;color:white;
+ padding:15px 26px;
+ border-radius:5px;font-weight:bold;
+}
+
+.primary:hover{background:#c71d49}
+
+.container{padding:45px 6%}
+
+.heading{
+ display:flex;justify-content:space-between;
+ align-items:center;margin-bottom:22px;
+}
+
+.heading h2{font-size:24px}
+
+.search{
+ width:100%;padding:15px;
+ background:#17121c;color:white;
+ border:1px solid #392a40;
+ border-radius:7px;
+ margin-bottom:22px;
+ outline:none;
+}
+
+.search:focus{border-color:var(--red)}
+
+.filters{
+ display:flex;gap:10px;
+ flex-wrap:wrap;margin-bottom:30px;
+}
+
+.filter{
+ background:#19131e;color:#ccc;
+ border:1px solid #382b40;
+ padding:10px 17px;border-radius:25px;
+}
+
+.filter.active{
+ background:var(--red);
+ border-color:var(--red);
+ color:white;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+ gap:20px;
+}
+
+.card{
+ background:var(--panel);
+ border:1px solid #2d2232;
+ border-radius:10px;
+ overflow:hidden;
+ transition:.25s;
+ position:relative;
+}
+
+.card:hover{
+ transform:translateY(-5px);
+ border-color:#a73b75;
+}
+
+.thumbnail{
+ height:155px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:45px;
+ background:linear-gradient(135deg,#482039,#17101e);
+}
+
+.card:nth-child(3n) .thumbnail{
+ background:linear-gradient(135deg,#25244c,#17101e);
+}
+
+.card:nth-child(2n) .thumbnail{
+ background:linear-gradient(135deg,#50302d,#17101e);
+}
+
+.details{padding:17px}
+.details h3{font-size:16px;margin-bottom:8px}
+.details p{font-size:12px;color:var(--muted)}
+
+.access{
+ display:inline-block;
+ font-size:10px;
+ font-weight:bold;
+ padding:5px 9px;
+ border-radius:4px;
+ margin-bottom:10px;
+}
+
+.free{background:#123c2a;color:#65e5a1}
+.premium{background:#493012;color:#ffd36d}
+
+.locked{
+ filter:brightness(.55);
+}
+
+.lock-overlay{
+ position:absolute;inset:0;
+ display:flex;align-items:center;
+ justify-content:center;
+ background:#09070b55;
+ pointer-events:none;
+ font-size:14px;font-weight:bold;
+}
+
+.upgrade{
+ background:linear-gradient(120deg,#251126,#42142d,#251126);
+ padding:65px 20px;
+ text-align:center;
+ border:1px solid #572849;
+ border-radius:13px;
+}
+
+.upgrade h2{font-size:34px;margin:15px 0}
+.upgrade p{color:#c6b7c7;line-height:1.7}
+
+footer{
+ text-align:center;
+ padding:40px 20px;
+ border-top:1px solid #302335;
+ color:#777;line-height:2;
+}
+
+footer .logo{margin-bottom:12px}
+
+.modal{
+ display:none;
+ position:fixed;inset:0;
+ z-index:200;
+ background:#000c;
+ align-items:center;
+ justify-content:center;
+ padding:20px;
+}
+
+.modal-box{
+ background:#1b1220;
+ border:1px solid #6b3055;
+ border-radius:12px;
+ padding:35px;
+ max-width:400px;width:100%;
+ text-align:center;
+}
+
+.modal-box h2{margin-bottom:15px}
+.modal-box p{color:#bbb;line-height:1.6}
+.close{
+ background:#302335;color:white;
+ border:0;padding:10px 18px;
+ border-radius:5px;margin-top:20px;
+}
+
+@media(max-width:700px){
+ nav{display:none}
+ header{padding:16px 5%}
+ .hero{padding:65px 7%}
+ .container{padding:35px 5%}
+ .heading h2{font-size:20px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="logo">MISCHIEFHIGH.</div>
+
+ <nav>
+  <a href="#">Home</a>
+  <a href="#sections">Explore</a>
+  <a href="#premium">Premium</a>
+  <a href="#about">About</a>
+ </nav>
+
+ <button class="signin" onclick="openModal('login')">
+  Sign In
+ </button>
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+ <div class="hero-content">
+  <div class="eyebrow">WELCOME TO MISCHIEFHIGH</div>
+
+  <h1>EXPLORE BEYOND ORDINARY.</h1>
+
+  <p>
+   Discover a curated entertainment experience.
+   Explore collections, cinematic stories and exclusive
+   premium content in one destination.
+  </p>
+
+  <button class="primary"
+   onclick="document.getElementById('sections').scrollIntoView({behavior:'smooth'})">
+   EXPLORE NOW →
+  </button>
+ </div>
+</section>
+
+<!-- MAIN COLLECTION -->
+
+<section class="container" id="sections">
+
+ <div class="heading">
+  <h2>Explore Collections</h2>
+  <span style="color:#aaa;font-size:12px">12 SECTIONS</span>
+ </div>
+
+ <input class="search" id="search"
+  placeholder="Search sections..."
+  oninput="filterSections()">
+
+ <div class="filters">
+  <button class="filter active" onclick="setFilter('All',this)">All</button>
+  <button class="filter" onclick="setFilter('Free',this)">Free</button>
+  <button class="filter" onclick="setFilter('Premium',this)">Premium</button>
+ </div>
+
+ <div class="grid" id="grid">
+
+  <!-- 10 FREE SECTIONS -->
+
+  <div class="card" data-type="Free">
+   <div class="thumbnail">🔥</div>
+   <div class="details">
+    <span class="access free">FREE</span>
+    <h3>01. Trending Now</h3>
+    <p>Discover trending entertainment</p>
+   </div>
+  </div>
+
+  <div class="card" data-type="Free">
+   <div class="thumbnail">✨</div>
+   <div class="details">
+    <span class="access free">FREE</span>
+    <h3>02. New Releases</h3>
+    <p>Fresh additions and new collections</p>
+   </div>
+  </div>
+
+  <div class="card" data-type="Free">
+   <div class="thumbnail">🏆</div>
+   <div class="details">
+    <span class="access free">FREE</span>
+    <h3>03. Most Popular</h3>
+    <p>Community favourites</p>
+   </div>
+  </div>
+
+  <div class="card" data-type="Free">
+   <div class="thumbnail">🎬</div>
+   <div class="details">
+    <span class="access free">FREE</span>
+    <h3>04. Cinema</h3>
+    <p>Cinematic entertainment</p>
+   </div>
+  </div>
+
+  <div class="card" data-type="Free">
+   <div class="thumbnail">📖</div>
+   <div class="details">
+    <span class="access free">FREE</span>
+    <h3>05. Stories</h3>
+    <p>Interesting stories and narratives</p>
+   </div>
+  </div>
+
+  <div class="card" data-type="Free">
+   <div class="thumbnail">🌆</div>
+   <div class="details">
+    <span class="access free">FREE</span>
+    <h3>06. Lifestyle</h3>
+    <p>Explore modern lifestyles</p>
+   </div>
+  </div>
+
+  <div class="card" data-type="Free">
+   <div class="thumbnail">🌍</div>
+   <div class="details">
+    <span class="access free">FREE</span>
+    <h3>07. Documentary</h3>
+    <p>Real-world discoveries</p>
+   </div>
+  </div>
+
+  <div class="card" data-type="Free">
+   <div class="thumbnail">⭐</div>
+   <div class="details">
+    <span class="access free">FREE</span>
+    <h3>08. Featured</h3>
+    <p>Handpicked collections</p>
+   </div>
+  </div>
+
+  <div class="card" data-type="Free">
+   <div class="thumbnail">🎨</div>
+   <div class="details">
+    <span class="access free">FREE</span>
+    <h3>09. Collections</h3>
+    <p>Explore curated categories</p>
+   </div>
+  </div>
+
+  <div class="card" data-type="Free">
+   <div class="thumbnail">💎</div>
+   <div class="details">
+    <span class="access free">FREE</span>
+    <h3>10. Editor's Choice</h3>
+    <p>Our favourite selections</p>
+   </div>
+  </div>
+
+  <!-- 2 PREMIUM SECTIONS -->
+
+  <div class="card" data-type="Premium"
+   onclick="openModal('premium')">
+   <div class="thumbnail locked">👑</div>
+   <div class="lock-overlay">🔒 PREMIUM ONLY</div>
+   <div class="details">
+    <span class="access premium">PREMIUM</span>
+    <h3>11. Exclusive Vault</h3>
+    <p>Members-only collection</p>
+   </div>
+  </div>
+
+  <div class="card" data-type="Premium"
+   onclick="openModal('premium')">
+   <div class="thumbnail locked">💠</div>
+   <div class="lock-overlay">🔒 PREMIUM ONLY</div>
+   <div class="details">
+    <span class="access premium">PREMIUM</span>
+    <h3>12. VIP Collection</h3>
+    <p>Exclusive VIP entertainment</p>
+   </div>
+  </div>
+
+ </div>
+</section>
+
+<!-- MEMBERSHIP -->
+
+<section class="container" id="premium">
+ <div class="upgrade">
+  <div class="eyebrow">MISCHIEFHIGH MEMBERSHIP</div>
+
+  <h2>UNLOCK THE EXCLUSIVE.</h2>
+
+  <p>
+   Enjoy all 10 free collections and discover
+   the benefits of premium membership.
+  </p>
+
+  <button class="primary"
+   onclick="openModal('premium')">
+   EXPLORE PREMIUM →
+  </button>
+ </div>
+</section>
+
+<!-- ABOUT -->
+
+<section class="container" id="about">
+ <div class="heading">
+  <h2>About MischiefHigh</h2>
+ </div>
+ <p style="color:#aaa;line-height:1.9">
+  MISCHIEFHIGH is a modern entertainment platform
+  designed around curated collections, cinematic
+  experiences and exclusive membership features.
+ </p>
+</section>
+
+<footer>
+ <div class="logo">MISCHIEFHIGH.</div>
+ <p>Explore Beyond Ordinary.</p>
+ <p>Home · Explore · Premium · About · Contact</p>
+ <p>© 2026 MISCHIEFHIGH. All rights reserved.</p>
+</footer>
+
+<!-- POPUP -->
+
+<div class="modal" id="modal">
+ <div class="modal-box">
+  <h2 id="modalTitle">Welcome</h2>
+  <p id="modalText"></p>
+  <button class="close" onclick="closeModal()">Close</button>
+ </div>
+</div>
+
+<script>
+
+let activeFilter='All';
+
+function setFilter(type,button){
+ activeFilter=type;
+
+ document.querySelectorAll('.filter').forEach(b=>{
+  b.classList.remove('active');
+ });
+
+ button.classList.add('active');
+ filterSections();
+}
+
+function filterSections(){
+ let search=document.getElementById('search')
+  .value.toLowerCase();
+
+ document.querySelectorAll('.card').forEach(card=>{
+  let matchesType=activeFilter==='All'||
+   card.dataset.type===activeFilter;
+
+  let matchesSearch=card.innerText.toLowerCase()
+   .includes(search);
+
+  card.style.display=
+   matchesType&&matchesSearch?'block':'none';
+ });
+}
+
+function openModal(type){
+ let modal=document.getElementById('modal');
+ let title=document.getElementById('modalTitle');
+ let text=document.getElementById('modalText');
+
+ if(type==='premium'){
+  title.innerText='👑 Premium Access';
+  text.innerText=
+   'This collection is reserved for premium members. Membership and payment features are not activated yet.';
+ }else{
+  title.innerText='Welcome to MISCHIEFHIGH';
+  text.innerText=
+   'The sign-in system is coming soon.';
+ }
+
+ modal.style.display='flex';
+}
+
+function closeModal(){
+ document.getElementById('modal').style.display='none';
+}
+
+</script>
+
+</body>
+  </html>
+  
